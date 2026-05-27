@@ -2,12 +2,16 @@ param(
     [Parameter(Mandatory = $true)]
     [string] $Version,
 
-    [string] $Config = (Join-Path (Split-Path -Parent $PSScriptRoot) 'release.config.psd1')
+    [string] $Config
 )
 
 $ErrorActionPreference = 'Stop'
 
 $ScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+if ([string]::IsNullOrWhiteSpace($Config)) {
+    $Config = Join-Path (Split-Path -Parent $ScriptRoot) 'release.config.psd1'
+}
+
 Import-Module (Join-Path $ScriptRoot 'PluginReleaseConfig.psm1') -Force
 $ReleaseConfig = Import-PluginReleaseConfig -Path $Config
 

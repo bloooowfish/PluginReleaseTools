@@ -120,7 +120,7 @@ Assert-NotMatch -Actual $releaseScriptText -Pattern 'gh api user --jq \.login.*\
 $invokeScriptText = Get-Content -Raw $invokeScript
 Assert-Match -Actual $invokeScriptText -Pattern 'GH_CONFIG_DIR' -Message 'Invoke script should manage GH_CONFIG_DIR.'
 Assert-Match -Actual $invokeScriptText -Pattern 'gh api user --jq \.login' -Message 'Invoke script should check gh login.'
-Assert-Match -Actual $invokeScriptText -Pattern 'Split-Path -Parent \$PSScriptRoot' -Message 'Invoke script default config should be relative to tools, not caller cwd.'
+Assert-Match -Actual $invokeScriptText -Pattern 'Split-Path -Parent \$ScriptRoot' -Message 'Invoke script default config should be relative to tools, not caller cwd.'
 
 $buildScriptText = Get-Content -Raw $buildScript
 Assert-Match -Actual $buildScriptText -Pattern 'Set-ProjectVersion' -Message 'GitHub build script should update the project version in CI.'
